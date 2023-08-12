@@ -11,12 +11,10 @@
 
 			Celulares Iphone14ProMax = Crear("Apple", "Iphone 14 Pro max", 1024, 12, 6, "Apple Bionic 2", false, false, 24, "Blanco", 6.4, 4750, 1350);
 
-			////////////////////////////////////////////////////////////////////////////////////////////////////
-			Menu();
-			string _ = Console.ReadLine() ?? "";
 			Celulares[] ListaDispositivos = new Celulares[] { S23ULTRA, Iphone14ProMax };
 
-			OperacionRealizar(verificaNumero(_, "Menu"), ListaDispositivos);
+			////////////////////////////////////////////////////////////////////////////////////////////////////
+			iniciador(ListaDispositivos);
 
 
 
@@ -25,7 +23,13 @@
 
 
 		}
+		static void iniciador(Celulares[] ListaDispositivos)
+		{
+			Menu();
+			string _ = Console.ReadLine() ?? "";
 
+			OperacionRealizar(verificaNumero(_, "Menu"), ListaDispositivos);
+		}
 
 
 		static void Menu()
@@ -85,7 +89,8 @@
 					}
 					else
 					{
-						valor = Console.ReadLine() ?? "";
+                        Console.Write("\n Introduce un valor correcto: ");
+                        valor = Console.ReadLine() ?? "";
 
 					}
 
@@ -102,20 +107,28 @@
 			{
 				case 1:
 					Comprar(ListaDispositivos);
+					iniciador(ListaDispositivos);
 					break;
 				case 2:
 					Informacion(ListaDispositivos);
+					iniciador(ListaDispositivos);
+
 					break;
 				case 3:
 					DispositivosDisponibles(ListaDispositivos);
+					iniciador(ListaDispositivos);
+
 					break;
 				case 4:
-					break;
+                    Console.WriteLine("\n Esperamos que Vuelva Pronto");
+                    break;
 
 				default:
 					// controlar esto XD
 					Console.WriteLine("\n Operacion Fuera de Rango.");
-					Menu();
+					iniciador(ListaDispositivos);
+
+					
 
 					break;
 			}
@@ -163,14 +176,17 @@
             Console.Write("\n Introduce el Dinero: ");
             int valor = verificaNumero(Console.ReadLine() ?? "");
 
-			int faltante = c.Precio-valor;
 			bool s = false;
 			while (!s)
 			{
 				if (valor > c.Precio)
 				{
 					Console.WriteLine($"\nEspere, Aún le quedan: {valor - c.Precio} Dólares. ");
-					Console.WriteLine($"\n Felicidades acaba de comprar su: {c.Modelo}\n ");
+					Console.WriteLine("-----------------------------------------------------------------");
+					Console.WriteLine($"|\tFelicidades acaba de comprar su: {c.Modelo}\t| ");
+					Console.WriteLine("-----------------------------------------------------------------");
+
+
 					s = true;
 				}
 				else if (valor == c.Precio)
@@ -182,10 +198,12 @@
 				}
 				else
 				{
-					faltante = faltante - valor;
-					Console.Write($"Para comprar: {c.Modelo}, Aún le faltan: {faltante}. Favor Introduzca mas Dinero: ");
-					valor = verificaNumero(Console.ReadLine() ?? "");
+					Console.Write($"Para comprar: {c.Modelo}, Aún le faltan: {c.Precio-valor}. Favor Introduzca mas Dinero: ");
+
+					valor += verificaNumero(Console.ReadLine() ?? "");
+
 				}
+
 			}
 
 		}
@@ -229,9 +247,6 @@
 		public bool Auricular { get; set; }
 
 
-		static void IncluyeCaja()
-		{
-			// Write inside in the box
-		}
+		
 	}
 }
